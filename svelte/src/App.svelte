@@ -1,4 +1,5 @@
 <script>
+  import Map from "./lib/Map.svelte";
   const menuTop = [
     "Главная страница",
     "Карта",
@@ -16,7 +17,7 @@
   <nav class="menu menu--top">
     <ul class="menu__list">
       {#each menuTop as item (item)}
-        <li class="menu__item {selected === item ? 'active' : ''}">
+        <li class="menu__item">
           <a
             href="#"
             class="menu__link {selected === item ? 'active' : ''}"
@@ -46,7 +47,9 @@
     </nav>
   </div>
 </header>
-<main></main>
+<main>
+  <Map />
+</main>
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
