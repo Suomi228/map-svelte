@@ -94,5 +94,9 @@ body {
     &:hover {
       background: $menu-hover-bg;
     }
+
+    &.active {
+        background: white;
+      }
   }
 }

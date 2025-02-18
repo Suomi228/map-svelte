@@ -76,4 +76,7 @@ body {
 }
 .menu__link:hover {
   background: #cfcff5;
+}
+.menu__link.active {
+  background: white;
 }/*# sourceMappingURL=app.css.map */
