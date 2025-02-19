@@ -3,9 +3,12 @@
   import { Map } from "maplibre-gl";
   import "maplibre-gl/dist/maplibre-gl.css";
   import lineGeoJson from "../line.json";
+
   let map;
   let mapContainer;
   let showImages = false;
+  let showPlayer = false;
+
   const apiKey = import.meta.env.VITE_MAP_LIBRE_API_KEY;
   const images = [
     "/Group 232.png",
@@ -38,6 +41,7 @@
           "line-width": 4,
         },
       });
+
       map.on("click", "line-layer", () => {
         showImages = !showImages;
       });
@@ -47,25 +51,43 @@
   onDestroy(() => {
     map.remove();
   });
+
+  function openPlayer() {
+    showImages = false;
+    showPlayer = true;
+  }
+
+  function closePlayer() {
+    showPlayer = false;
+  }
 </script>
 
-<div class="map">
-  <a href="https://www.maptiler.com" class="map__watermark">
-    <img
-      src="https://api.maptiler.com/resources/logo.svg"
-      alt="MapTiler logo"
-    />
-  </a>
+<div class="map" class:hide={showPlayer}>
   <div class="map__container" bind:this={mapContainer}></div>
 </div>
 
 {#if showImages}
   <div class="gallery">
     {#each images as img}
-      <div class="gallery__item">
+      <div class="gallery__item" on:click={openPlayer}>
         <img src={img} alt="Train route" class="gallery__image" />
       </div>
     {/each}
+  </div>
+{/if}
+
+{#if showPlayer}
+  <div class="player-overlay">
+    <button class="player-overlay__close-btn" on:click={closePlayer}>✖</button>
+    <div class="player-overlay__container">
+      <iframe
+        class="player-overlay__iframe"
+        src="https://www.youtube.com/embed/i88lNMnpvEk?autoplay=1&rel=0&modestbranding=1&showinfo=0"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+    </div>
   </div>
 {/if}
 
