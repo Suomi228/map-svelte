@@ -1,11 +1,13 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy, tick } from "svelte";
   import { Map } from "maplibre-gl";
   import "maplibre-gl/dist/maplibre-gl.css";
   import lineGeoJson from "../line.json";
 
   let map;
+  let minimap;
   let mapContainer;
+  let minimapContainer;
   let showImages = false;
   let showPlayer = false;
 
@@ -50,15 +52,34 @@
 
   onDestroy(() => {
     map.remove();
+    if (minimap) minimap.remove();
   });
 
-  function openPlayer() {
+  async function openPlayer() {
     showImages = false;
     showPlayer = true;
+
+    await tick();
+
+    if (!minimap && minimapContainer) {
+      minimap = new Map({
+        container: minimapContainer,
+        style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
+        center: map.getCenter(),
+        zoom: map.getZoom() - 2,
+        attributionControl: false,
+        interactive: false,
+      });
+    }
   }
 
   function closePlayer() {
     showPlayer = false;
+
+    if (minimap) {
+      minimap.remove();
+      minimap = null;
+    }
   }
 </script>
 
@@ -88,6 +109,9 @@
         allowfullscreen
       ></iframe>
     </div>
+  </div>
+  <div class="minimap">
+    <div class="minimap__container" bind:this={minimapContainer}></div>
   </div>
 {/if}
 
