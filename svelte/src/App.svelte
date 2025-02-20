@@ -1,5 +1,6 @@
 <script>
   import Map from "./lib/Map.svelte";
+
   const menuTop = [
     "Главная страница",
     "Карта",
@@ -7,9 +8,16 @@
     "Финансовая модель",
     "Архив",
   ];
-  let selected = $state(menuTop[0]);
+
+  let selected = menuTop[0];
+  let isMenuOpen = false;
+
   function selectItem(item) {
     selected = item;
+  }
+
+  function setMenuState() {
+    isMenuOpen = !isMenuOpen;
   }
 </script>
 
@@ -21,7 +29,7 @@
           <a
             href="#"
             class="menu__link {selected === item ? 'active' : ''}"
-            onclick={() => selectItem(item)}
+            on:click={() => selectItem(item)}
           >
             {item}
           </a>
@@ -29,15 +37,17 @@
       {/each}
     </ul>
   </nav>
+
   <div class="header__inner">
     <div class="header__white-left">
-      <div class="header__burger"></div>
+      <div class="header__burger" on:click={setMenuState}></div>
       <div class="header__logo"></div>
       <div class="header__title">
         Система управления проектной документацией проекта ВСМ-1
       </div>
     </div>
-    <nav class="menu menu--bottom">
+
+    <nav class="menu menu--bottom {isMenuOpen ? 'menu--bottom-active' : ''}">
       <ul class="menu__list">
         <li class="menu__item"><a href="#" class="menu__link">Объекты</a></li>
         <li class="menu__item"><a href="#" class="menu__link">Регионы</a></li>
@@ -52,5 +62,5 @@
 </main>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
 </style>

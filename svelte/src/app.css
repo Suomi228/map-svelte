@@ -51,6 +51,12 @@ body {
   background: #eaeafd;
   display: flex;
   justify-content: flex-start;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.menu--top::-webkit-scrollbar {
+  display: none;
 }
 .menu--bottom {
   padding: 10px 0;
@@ -79,4 +85,35 @@ body {
 }
 .menu__link.active {
   background: white;
+}
+
+@media (max-width: 768px) {
+  .menu--bottom {
+    display: none;
+  }
+  .menu--bottom-active {
+    display: flex;
+    position: fixed;
+    top: 15%;
+    right: 0;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background: white;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  .menu--bottom-active .menu__list {
+    flex-direction: column;
+    overflow-x: auto;
+    max-height: 80vh;
+    padding: 20px;
+  }
+  .menu__item {
+    border: none;
+  }
 }/*# sourceMappingURL=app.css.map */
