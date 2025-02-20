@@ -17,9 +17,15 @@
   height: 264px;
   border: 2px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 9;
   opacity: 1;
   transform: translateY(-50%);
+}
+@media (max-width: 768px) {
+  .minimap {
+    width: 150px;
+    height: 150px;
+  }
 }
 .minimap__container {
   width: 100%;
@@ -48,6 +54,21 @@
   -o-object-fit: fill;
      object-fit: fill;
   border-radius: 10px;
+}
+@media (max-width: 768px) {
+  .gallery {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 10px;
+  }
+  .gallery__item {
+    flex: 0 0 auto;
+  }
+  .gallery__image {
+    width: 180px;
+    height: 110px;
+  }
 }
 
 .hide {
